@@ -11,10 +11,12 @@ private:
 	Date mEntryDate;
 	char* mManifacName;
 	unsigned int mQuantity;
-	Place location;
-	char* comment[MAX_SIZE];
+	Place mLocation;
+	char* mComment[MAX_SIZE];
 public:
+	Product();
 
-};
+	~Product();
+}; 
 
 #endif

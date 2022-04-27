@@ -9,7 +9,9 @@ private:
 	size_t mMonth;
 	size_t mDay;
 public:
-	void init(Date& date);
+	Date();
+
+	void init();
 	bool isLeapYear()const;
 	bool isValidDate()const;
 

@@ -8,6 +8,6 @@ private:
 	size_t mId;
 public:
 	Place();
-};
+}; 
 
-#endif
+#endif 

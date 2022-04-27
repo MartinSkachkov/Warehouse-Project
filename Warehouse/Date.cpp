@@ -2,14 +2,18 @@
 #include <iostream>
 using namespace std;
 
-void Date::init(Date& date) {
+Date::Date() : mYear(0), mMonth(0), mDay(0) {
+	init();
+}
+
+void Date::init() {
 	do {
 		cout << "Year: ";
-		cin >> date.mYear;
+		cin >> mYear;
 		cout << "Month: ";
-		cin >> date.mMonth;
+		cin >> mMonth;
 		cout << "Day: ";
-		cin >> date.mDay;
+		cin >> mDay;
 		if (isValidDate()) {
 			cout << "Valid Date!\n";
 		}
