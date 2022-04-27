@@ -19,6 +19,6 @@ void Stock::erase() {
 	delete[] mProducts;
 }
 
-void Stock::resize
+//void Stock::resize
 
-Stock::Stock() : mProducts(nullptr), mSize(0), mCapacity(0) {}
+//Stock::Stock() : mProducts(nullptr), mSize(0), mCapacity(0) {}
