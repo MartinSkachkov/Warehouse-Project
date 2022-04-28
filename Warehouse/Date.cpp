@@ -2,9 +2,7 @@
 #include <iostream>
 using namespace std;
 
-Date::Date() : mYear(0), mMonth(0), mDay(0) {
-	init();
-}
+Date::Date() : mYear(0), mMonth(0), mDay(0) {}
 
 void Date::init() {
 	do {

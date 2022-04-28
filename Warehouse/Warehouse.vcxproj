@@ -148,6 +148,7 @@
     <ClCompile Include="Date.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Place.cpp" />
+    <ClCompile Include="Product.cpp" />
     <ClCompile Include="Stock.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

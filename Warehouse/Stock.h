@@ -14,7 +14,8 @@ private:
 public:
 	Stock();
 
-	void setProducts(const Product);
+	void createProducts(const Product);  // calls initProduct()
+	void printProducts()const;
 	
 };
 

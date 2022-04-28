@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-void Stock::copy(const Stock& source) {
+/*void Stock::copy(const Stock& source) {
 	mSize = source.mSize;
 	mCapacity = source.mCapacity;
 	mProducts = new Product* [mCapacity];
@@ -17,8 +17,14 @@ void Stock::erase() {
 		delete mProducts[i];
 	}
 	delete[] mProducts;
-}
+}*/
 
 //void Stock::resize
 
 //Stock::Stock() : mProducts(nullptr), mSize(0), mCapacity(0) {}
+
+void Stock::printProducts()const {
+	for (size_t i = 0; i < mSize; i++){
+		mProducts[i]->printProduct();
+	}
+}
