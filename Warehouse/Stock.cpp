@@ -21,10 +21,41 @@ void Stock::erase() {
 
 //void Stock::resize
 
-//Stock::Stock() : mProducts(nullptr), mSize(0), mCapacity(0) {}
+Stock::Stock() {
+	
+}
 
-void Stock::printProducts()const {
-	for (size_t i = 0; i < mSize; i++){
-		mProducts[i]->printProduct();
+void Stock::setProdNumToZero() {
+	for (size_t i = 0; i < 3; i++)
+	{
+		for (size_t j = 0; j < 10; j++)
+		{
+			mProducts[i][j].getPlace().() = 0;
+		}
+	}
+}
+
+void Stock::createProducts() {
+	Product newProduct;//constr for newPr
+	for (size_t i = 0; i < 3; i++){
+		for (size_t j = 0; j < 10; j++){
+			if(mProducts[i][j].getPlace().getId()!=0){
+			mProducts[i][j](newProduct);//copy constr
+			}
+			else
+			{
+				cout << "no available space";
+			}
+		}
+	}
+}
+
+//this function will display all details of all products available in the Warehouse
+void Stock::displayProducts()const {
+	for (size_t i = 0; i < 3; i++){
+		for (size_t j = 0; j < 10; j++){
+			mProducts[i][j].printProduct();
+			
+		}
 	}
 }

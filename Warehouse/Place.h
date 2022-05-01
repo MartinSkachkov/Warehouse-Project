@@ -1,11 +1,14 @@
 #ifndef __PLACE_
 #define __PLACE_
+#include "UniqueID.h"
 
 class Place {
 private:
 	size_t mSection;
 	size_t mShelf;
-	size_t mId;
+	size_t mId; //id-то въведено от потребителя
+	UniqueID mUniqueId; //със създаването на product
+	//да се създаде и уникално id генерирано от програмата
 public:
 	Place();
 

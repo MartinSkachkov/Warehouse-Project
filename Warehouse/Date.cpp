@@ -13,7 +13,7 @@ void Date::init() {
 		cout << "Day: ";
 		cin >> mDay;
 		if (isValidDate()) {
-			cout << "Valid Date!\n";
+			cout << "Valid Date! Saved successfully\n";
 		}
 		else {
 			cout << "Invalid Date! Enter again!\n";

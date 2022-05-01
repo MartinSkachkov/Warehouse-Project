@@ -11,7 +11,6 @@ Product::~Product() {
 	delete[] mManifacName;
 }
 
-//setters
 void Product::initProduct() {
 	cout << "--------------\n";
 	cout << "Product Initialization\n";
@@ -32,6 +31,28 @@ void Product::initProduct() {
 	cout << "--------------\n";
 }
 
+void Product::printProduct()const {
+	cout << "--------------\n";
+	cout << "Product Information\n";
+	cout << "--------------\n";
+
+	cout << "Product name: " << getProdName();
+	cout << "Expire date\n" << "Year: " << mExpireDate.getYear()
+		<< "Month: " << mExpireDate.getMonth()
+		<< "Day: " << mExpireDate.getDay();
+	cout << "Entry date\n" << "Year: " << mEntryDate.getYear()
+		<< "Month: " << mEntryDate.getMonth()
+		<< "Day: " << mEntryDate.getDay();
+	cout << "Manifacturer name: " << getManifacName();
+	cout << "Quantity: " << getQuantity();
+	cout << "Location\n" << "Section: " << mLocation.getSection()
+		<< "Shelf: " << mLocation.getShelf()
+		<< "Id: " << mLocation.getId();
+	cout << "Comment: " << getComment();
+
+}
+
+//setters
 void Product::setProdName() {
 	cout << "Product name: ";
 	char input[MAX_LEN];
@@ -67,27 +88,6 @@ void Product::setComment() {
 }
 
 //getters
-void Product::printProduct()const {
-	cout << "--------------\n";
-	cout << "Product Information\n";
-	cout << "--------------\n";
-
-	cout << "Product name: " << getProdName();
-	cout << "Expire date\n" << "Year: " << mExpireDate.getYear()
-							<< "Month: " << mExpireDate.getMonth()
-							<< "Day: " << mExpireDate.getDay();
-	cout << "Entry date\n" << "Year: " << mEntryDate.getYear()
-						   << "Month: " << mEntryDate.getMonth()
-						   << "Day: " << mEntryDate.getDay();
-	cout << "Manifacturer name: " << getManifacName();
-	cout << "Quantity: " << getQuantity();
-	cout << "Location\n" << "Section: " << mLocation.getSection()
-						 << "Shelf: " << mLocation.getShelf()
-						 << "Id: " << mLocation.getId();
-	cout << "Comment: " << getComment();
-	
-}
-
 const char* Product::getProdName()const {
 	return mProdName;
 }
@@ -102,4 +102,8 @@ unsigned int Product::getQuantity()const {
 
 const char* Product::getComment()const {
 	return mComment;
+}
+
+Place Product::getPlace()const {
+	return mLocation;
 }

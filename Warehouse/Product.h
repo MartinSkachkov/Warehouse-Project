@@ -13,23 +13,26 @@ private:
 	unsigned int mQuantity;
 	Place mLocation;
 	char mComment[MAX_LEN];
+
 public:
 	Product();
 	~Product();
+
+	void initProduct();
+	void printProduct()const;
 
 	//setters
 	void setProdName();
 	void setManifacName();
 	void setQuantity();
 	void setComment();
-	void initProduct();
 
 	//getters
 	const char* getProdName()const;
 	const char* getManifacName()const;
 	unsigned int getQuantity()const;
 	const char* getComment()const;
-	void printProduct()const;
+	Place getPlace()const;
 }; 
 
 #endif
