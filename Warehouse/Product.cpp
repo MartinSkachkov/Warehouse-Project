@@ -2,19 +2,48 @@
 #include <iostream>
 using namespace std;
 
-Product::Product() {
-	initProduct();
+void Product::copyFrom(const Product& source) {
+	mProdName = new char[strlen(source.mProdName) + 1];
+	strcpy_s(mProdName, strlen(source.mProdName) + 1, source.mProdName);
+	mExpireDate = source.mEntryDate; // op=?
+	mEntryDate = source.mEntryDate;
+	mManifacName = new char[strlen(source.mManifacName) + 1];
+	strcpy_s(mManifacName, strlen(source.mManifacName) + 1, source.mManifacName);
+	mQuantity = source.mQuantity;
+	mLocation = source.mLocation; // op=?
+	strcpy_s(mComment, MAX_LEN, source.mComment);
 }
 
-Product::~Product() {
+void Product::free() {
 	delete[] mProdName;
 	delete[] mManifacName;
 }
 
+Product::Product() {
+	initProduct();
+}
+
+Product::Product(const Product& source) {
+	copyFrom(source);
+}
+
+Product& Product::operator=(const Product& source) {
+	if (this == &source) {
+		return *this;
+	}
+	free();
+	copyFrom(source);
+	return *this;
+}
+
+Product::~Product() {
+	free();
+}
+
 void Product::initProduct() {
-	cout << "--------------\n";
+	cout << "----------------------\n";
 	cout << "Product Initialization\n";
-	cout << "--------------\n";
+	cout << "----------------------\n";
 
 	setProdName();
 	cout << "Expire date\n";
@@ -23,18 +52,19 @@ void Product::initProduct() {
 	mEntryDate.init();
 	setManifacName();
 	setQuantity();
-	mLocation.initPlace();
+	//mLocation.initPlace();
 	setComment();
+	mLocation.setEmptyPlace(1); //when a product is created it sets the place to non-empty
 
-	cout << "--------------\n";
+	cout << "---------------------------------\n";
 	cout << "Product Initialized Successfully!\n";
-	cout << "--------------\n";
+	cout << "---------------------------------\n";
 }
 
 void Product::printProduct()const {
-	cout << "--------------\n";
+	cout << "----------------------\n";
 	cout << "Product Information\n";
-	cout << "--------------\n";
+	cout << "----------------------\n";
 
 	cout << "Product name: " << getProdName();
 	cout << "Expire date\n" << "Year: " << mExpireDate.getYear()
@@ -92,6 +122,14 @@ const char* Product::getProdName()const {
 	return mProdName;
 }
 
+Date Product::getExpireDate()const {
+	return mExpireDate;
+}
+
+Date Product::getEntryDate()const {
+	return mEntryDate;
+}
+
 const char* Product::getManifacName()const {
 	return mManifacName;
 }
@@ -100,10 +138,10 @@ unsigned int Product::getQuantity()const {
 	return mQuantity;
 }
 
-const char* Product::getComment()const {
-	return mComment;
-}
-
 Place Product::getPlace()const {
 	return mLocation;
+}
+
+const char* Product::getComment()const {
+	return mComment;
 }

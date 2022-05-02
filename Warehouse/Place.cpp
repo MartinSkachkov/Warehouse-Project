@@ -2,9 +2,9 @@
 #include <iostream>
 using namespace std;
 
-Place::Place() : mSection(0), mShelf(0), mId(0) {}
+//Place::Place() : mSection(0), mShelf(0), mId(0) {}
 
-void Place::initPlace() {
+/*void Place::initPlace() {
 	cout << "Choose section: ";
 	cin >> mSection;
 
@@ -13,6 +13,26 @@ void Place::initPlace() {
 
 	cout << "Choose Id: ";
 	cin >> mId;
+}*/
+
+//setters
+void Place::setEmptyPlace(size_t num) {
+	//0 - empty
+	//1 - non-empty
+	mIsEmptyPlace = num;
+}
+
+void Place::setSection(size_t num) {
+	mSection = num;
+}
+
+void Place::setShelf(size_t num) {
+	mShelf = num;
+}
+
+//getters
+size_t Place::getEmptyPlace()const {
+	return mIsEmptyPlace;
 }
 
 size_t Place::getSection()const {
@@ -24,5 +44,5 @@ size_t Place::getShelf()const {
 }
 
 size_t Place::getId()const {
-	return mId;
+	return mUniqueId.getID();
 }

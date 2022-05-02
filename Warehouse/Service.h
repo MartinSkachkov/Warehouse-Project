@@ -3,7 +3,8 @@
 
 class WarehouseService {
 public:
-	static void 
+	static void createStock();
+	static void displayStock();
 };
 
 #endif

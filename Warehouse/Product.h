@@ -12,10 +12,15 @@ private:
 	char* mManifacName;
 	unsigned int mQuantity;
 	Place mLocation;
-	char mComment[MAX_LEN];
+	char mComment[MAX_LEN]; //a comment should be short with a fixed number of characters
+
+	void copyFrom(const Product& source);
+	void free();
 
 public:
 	Product();
+	Product(const Product& source);
+	Product& operator=(const Product& source);
 	~Product();
 
 	void initProduct();
@@ -29,10 +34,13 @@ public:
 
 	//getters
 	const char* getProdName()const;
+	Date getExpireDate()const;
+	Date getEntryDate()const;
 	const char* getManifacName()const;
 	unsigned int getQuantity()const;
-	const char* getComment()const;
 	Place getPlace()const;
+	const char* getComment()const;
+	
 }; 
 
 #endif

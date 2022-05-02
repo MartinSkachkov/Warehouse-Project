@@ -9,11 +9,20 @@ private:
 	size_t mMonth;
 	size_t mDay;
 public:
-	Date();
-
+	//function to initialize the member-data
 	void init();
+
+	//functions for checking if the entered date is valid
 	bool isLeapYear()const;
 	bool isValidDate()const;
+
+	//operators overloaded
+	bool operator!=(const Date& other);
+
+	//setters
+	void setYear();
+	void setMonth();
+	void setDay();
 
 	//getters
 	size_t getYear()const;

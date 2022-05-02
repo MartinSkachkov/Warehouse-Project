@@ -1,13 +1,15 @@
 #include "Date.h"
 #include "Product.h"
 #include "Stock.h"
+#include "Service.h"
 #include <iostream>
 using namespace std;
 
 int main() {
 
 	int option, flag = 0;
-
+	
+	// Menu
 	// diaply all options available in Warehouse
 	while (1){
 		cout << "\n\tPress 1 to DISPLAY COMPLETE STOCK";
@@ -20,11 +22,11 @@ int main() {
 		cin >> option;
 		switch (option) {
 		case 1:
-			Stock::createProducts();
+			WarehouseService::createStock();
 			break;
 
 		case 2:
-			Stock::displayProducts();
+			WarehouseService::displayStock();
 			break;
 
 		case 3:
@@ -35,7 +37,8 @@ int main() {
 			Stock::availabilityCheck();
 			break;
 
-		case 5: Stock::clearingUp();
+		case 5: 
+			Stock::clearingUp();
 			break;
 
 		case 6:

@@ -2,16 +2,12 @@
 #include <iostream>
 using namespace std;
 
-Date::Date() : mYear(0), mMonth(0), mDay(0) {}
-
+//function to initialize the member-data
 void Date::init() {
 	do {
-		cout << "Year: ";
-		cin >> mYear;
-		cout << "Month: ";
-		cin >> mMonth;
-		cout << "Day: ";
-		cin >> mDay;
+		setYear();
+		setMonth();
+		setDay();
 		if (isValidDate()) {
 			cout << "Valid Date! Saved successfully\n";
 		}
@@ -21,6 +17,7 @@ void Date::init() {
 	} while (!isValidDate());
 }
 
+//functions for checking if the entered date is valid
 bool Date::isLeapYear()const {
 	//needed for the isValidDate function
 	return((mYear % 4 == 0) && (mYear % 100 != 0) || (mYear % 400 == 0));
@@ -47,6 +44,30 @@ bool Date::isValidDate()const {
 		return (mDay <= 30);
 	}
 	return true;
+}
+
+//operators overloaded
+bool Date::operator!=(const Date& other) {
+	if (this->mYear != other.mYear && this->mMonth != other.mMonth && this->mDay != other.mDay) {
+		return true; //dates are different
+	}
+	return false; //dates are not different
+}
+
+//setters
+void Date::setYear() {
+	cout << "Year: ";
+	cin >> mYear;
+}
+
+void Date::setMonth() {
+	cout << "Month: ";
+	cin >> mMonth;
+}
+
+void Date::setDay() {
+	cout << "Day: ";
+	cin >> mDay;
 }
 
 //getters
