@@ -18,6 +18,7 @@ public:
 
 	//operators overloaded
 	bool operator!=(const Date& other);
+	bool operator==(const Date& other);
 
 	//setters
 	void setYear();
@@ -28,6 +29,10 @@ public:
 	size_t getYear()const;
 	size_t getMonth()const;
 	size_t getDay()const;
+
+	//needed for file writing
+	friend ostream& operator<<(ostream& os, const Date& date);
+	
 };
 
 #endif

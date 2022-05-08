@@ -54,6 +54,14 @@ bool Date::operator!=(const Date& other) {
 	return false; //dates are not different
 }
 
+bool Date::operator==(const Date& other) {
+	if (this->mYear == other.mYear && this->mMonth == other.mMonth && this->mDay == other.mDay) {
+		return true; //dates are not different
+	}
+	return false; //dates are different
+}
+
+
 //setters
 void Date::setYear() {
 	cout << "Year: ";

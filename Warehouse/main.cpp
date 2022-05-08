@@ -7,7 +7,7 @@ using namespace std;
 
 int main() {
 
-	int option, flag = 0;
+	size_t option, flag = 0;
 	
 	// Menu
 	// diaply all options available in Warehouse
@@ -22,11 +22,11 @@ int main() {
 		cin >> option;
 		switch (option) {
 		case 1:
-			WarehouseService::createStock();
+			Stock::createProducts();
 			break;
 
 		case 2:
-			WarehouseService::displayStock();
+			Stock::displayProducts();
 			break;
 
 		case 3:

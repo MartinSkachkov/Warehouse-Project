@@ -1,5 +1,6 @@
 #ifndef __PRODUCT_
 #define __PRODUCT_
+#include <fstream>
 #include "Date.h"
 #include "Place.h"
 #define MAX_LEN 1024
@@ -23,6 +24,7 @@ public:
 	Product& operator=(const Product& source);
 	~Product();
 
+	//helpful functions
 	void initProduct();
 	void printProduct()const;
 
@@ -30,6 +32,7 @@ public:
 	void setProdName();
 	void setManifacName();
 	void setQuantity();
+	void updateQuantity(size_t newQuantity);
 	void setComment();
 
 	//getters
@@ -41,6 +44,9 @@ public:
 	Place getPlace()const;
 	const char* getComment()const;
 	
+	//file
+	static void write(const char* fileName, const Product& product);
+	static void read(const char* fileName);
 }; 
 
 #endif

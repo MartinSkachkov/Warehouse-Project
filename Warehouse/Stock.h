@@ -3,47 +3,42 @@
 #include "Product.h"
 #define SECTIONS 3
 #define SHELVES 10
+#define SHELF_POS 10
 
 class Stock {
 private:
-	Product mProducts[SECTIONS][SHELVES];
-	/*size_t mSize;
-	size_t mCapacity;
-
-	void copy(const Stock& source);
-	void resize(size_t newCapacity);
-	void erase();*/
+	static Product* mProducts[SECTIONS][SHELVES][SHELF_POS]; //arr of pointers
 public:
-	//Utils
+	//Utils - help-functions
 	// -------------------------------------------
 	//this function sets every place to empty to indicate there is no product in the beginning
 	void setEveryPlaceToEmpty();
 
-	//this function will check if there is a product with the same name
-	bool productWithSameName(const Product& other)const;
+	//this function will create an object of type product
+	static void createProducts();  // calls initProduct();
 
-	//this function will count products with same name
-	size_t countProductWithSameName(const Product& other)const;
+	//this function will set a product at an empty space
+	static void setProducts(const Product& product);
 
+	//this function will tell the number of repetitions of a product
+	int productsWithSameName();
 	// -------------------------------------------
 
-	//this function will add new product
-	void createProducts();  // calls initProduct()
+	//these function will add new product
+	static void addProducts(const Product& product);
 
 	//this function will display all details of all products available in the Warehouse
-	void displayProducts()const;
+	static void displayProducts();
 	
 	//this function will remove a product
-	void removeProducts();
+	static void removeProducts();
 
 	//this function will check if a product is available
-	bool availabilityCheck();
+	static bool availabilityCheck();
 
 	//clears up the warehouse
-	void clearingUp();
+	static void clearingUp();
 
-	//friend class that should have an access to the methods of this class
-	friend WarehouseService;
 };
 
 #endif

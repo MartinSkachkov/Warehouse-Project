@@ -40,6 +40,7 @@ Product::~Product() {
 	free();
 }
 
+//helpful functions
 void Product::initProduct() {
 	cout << "----------------------\n";
 	cout << "Product Initialization\n";
@@ -52,9 +53,7 @@ void Product::initProduct() {
 	mEntryDate.init();
 	setManifacName();
 	setQuantity();
-	//mLocation.initPlace();
 	setComment();
-	mLocation.setEmptyPlace(1); //when a product is created it sets the place to non-empty
 
 	cout << "---------------------------------\n";
 	cout << "Product Initialized Successfully!\n";
@@ -104,6 +103,10 @@ void Product::setQuantity() {
 	cin >> mQuantity;
 }
 
+void Product::updateQuantity(size_t newQuantity) {
+	mQuantity = newQuantity;
+}
+
 void Product::setComment() {
 	cout << "Short comment (MAX 1024 symbols): ";
 	do {
@@ -144,4 +147,23 @@ Place Product::getPlace()const {
 
 const char* Product::getComment()const {
 	return mComment;
+}
+
+ostream& operator<<(ostream& os, const Product& product) {
+	return os;
+}
+
+//files
+void Product::write(const char* filename,const Product& product) {
+	ofstream fout(filename);
+
+	if (fout.is_open()) {
+		cout << "Error! File couldn't be opened";
+		return;
+	}
+	else {
+		cout << filename << " was opened!";
+	}
+	
+	fout << product.mProdName << product.mExpireDate;
 }
