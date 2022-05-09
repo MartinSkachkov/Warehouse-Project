@@ -38,6 +38,8 @@ void Stock::setProducts(const Product& product) {
 					mProducts[i][j][k]->getPlace().setSection(i);
 					mProducts[i][j][k]->getPlace().setShelf(j);
 					mProducts[i][j][k]->getPlace().setShelfPos(k);
+					//save the product to the file
+					Product::write(FILENAME, product);
 				}
 				else {
 					cout << "No space available!";
@@ -47,34 +49,14 @@ void Stock::setProducts(const Product& product) {
 	}
 }
 
-//this function will tell the number of repetitions of a product
-int Stock::productsWithSameName() {
-	for (size_t currSec = 0; currSec < SECTIONS; currSec++)
-	{
-		for (size_t j = 0; j < SHELVES; j++)
-		{
-			for (size_t i = 0; i < SHELF_POS-1; i++)
-			{
-				for (size_t i = 0; i < length; i++)
-				{
-
-				}
-			}
-		}
-	}
-}
 // -------------------------------------------
 
 //this function will add new product
-size_t wholeQuantity = 0;
 void Stock::addProducts(const Product& product) {
 	for (size_t i = 0; i < SECTIONS; i++) {
 		for (size_t j = 0; j < SHELVES; j++) {
 			for (size_t k = 0; k < SHELF_POS; k++) {
 				// wanted conditions for a product to be added
-				if (strcmp(mProducts[i][j][k]->getProdName(), product.getProdName()) == 0) {
-					wholeQuantity += mProducts[i][j][k]->getQuantity() + product.getQuantity();
-				}
 				if (strcmp(mProducts[i][j][k]->getProdName(), product.getProdName()) == 0 && mProducts[i][j][k]->getExpireDate() != product.getExpireDate()) { //op!= for dates
 					// insert at empty location our new product
 					setProducts(product);
@@ -87,6 +69,7 @@ void Stock::addProducts(const Product& product) {
 						//find a place on the same shelf
 						if (mProducts[i][j][currShelfPos] == nullptr) {
 							*mProducts[i][j][currShelfPos] = product;
+							Product::write(FILENAME, product); //save it to the file when it's added
 							mProducts[i][j][currShelfPos]->getPlace().setSection(i);
 							mProducts[i][j][currShelfPos]->getPlace().setShelf(j);
 							mProducts[i][j][currShelfPos]->getPlace().setShelfPos(currShelfPos);
@@ -102,6 +85,7 @@ void Stock::addProducts(const Product& product) {
 						{
 							if (mProducts[i][currShelf][currShelfPos] == nullptr) {
 								*mProducts[i][currShelf][currShelfPos] = product;
+								Product::write(FILENAME, product); //save it to the file when it's added
 								mProducts[i][currShelf][currShelfPos]->getPlace().setSection(i);
 								mProducts[i][currShelf][currShelfPos]->getPlace().setShelf(currShelf);
 								mProducts[i][currShelf][currShelfPos]->getPlace().setShelfPos(currShelfPos);
@@ -122,6 +106,7 @@ void Stock::addProducts(const Product& product) {
 							{
 								if (mProducts[currSection][currShelf][currShelfPos] == nullptr) {
 									*mProducts[currSection][currShelf][currShelfPos] = product;
+									Product::write(FILENAME, product); //save it to the file when it's added
 									mProducts[currSection][currShelf][currShelfPos]->getPlace().setSection(currSection);
 									mProducts[currSection][currShelf][currShelfPos]->getPlace().setShelf(currShelf);
 									mProducts[currSection][currShelf][currShelfPos]->getPlace().setShelfPos(currShelfPos);
@@ -142,15 +127,28 @@ void Stock::addProducts(const Product& product) {
 
 //this function will display all details of all products available in the Warehouse
 void Stock::displayProducts() {
-	for (size_t i = 0; i < SECTIONS; i++) {
-		for (size_t j = 0; j < SHELVES; j++) {
-			for (size_t k = 0; k < SHELF_POS; k++) {
+	size_t quantityOfProdWithSameName = 0;
+	for (size_t currSec = 0; currSec < SECTIONS; currSec++) {
+		for (size_t currShelf = 0; currShelf < SHELVES; currShelf++) {
+			for (size_t currShelfPos = 0; currShelfPos < SHELF_POS; currShelfPos++) {
 				//at this position there is a product so we print it
-				if (mProducts[i][j][k] != nullptr) {
-					mProducts[i][j][k]->printProduct();
+				if (mProducts[currSec][currShelf][currShelfPos] != nullptr) {
+					//compare the name of the current product with the name of the other products in the warehouse
+					for (size_t otherSec = 0; otherSec < SECTIONS; otherSec++) {
+						for (size_t otherShelf = 0; otherShelf < SHELVES; otherShelf++) {
+							for (size_t otherShelfPos = 0; otherShelfPos < SHELF_POS; otherShelfPos++) {
+								if (strcmp(mProducts[currSec][currShelf][currShelfPos]->getProdName(), mProducts[otherSec][otherShelf][otherShelfPos]->getProdName()) == 0) {
+									quantityOfProdWithSameName += mProducts[otherSec][otherShelf][otherShelfPos]->getQuantity();
+								}
+							}
+						}
+					}
+					quantityOfProdWithSameName += mProducts[currSec][currShelf][currShelfPos]->getQuantity();
+					//print the current product and then the whole quantity with the same name
+					mProducts[currSec][currShelf][currShelfPos]->printProduct();
 					cout << endl;
-					//cout << "Quantity of products with the same name: " << wholeQuantity; //the total quantity of products of the same name, regardless of their expire date
-					//wholeQuantity = 0;
+					cout << "Whole quantity of products with the same name: " << quantityOfProdWithSameName << endl; //the total quantity of products of the same name, regardless of their expire date
+					quantityOfProdWithSameName = 0;
 				}
 			}
 		}
@@ -169,9 +167,9 @@ void Stock::removeProducts() {
 	cout << "Enter the quantity of the product you want to remove: ";
 	cin >> inputQuantity;
 
-	for (size_t i = 0; i < SECTIONS; i++){
-		for (size_t j = 0; j < SHELVES; j++){
-			for (size_t k = 0; k < SHELF_POS; k++){
+	for (size_t i = 0; i < SECTIONS; i++) {
+		for (size_t j = 0; j < SHELVES; j++) {
+			for (size_t k = 0; k < SHELF_POS; k++) {
 				if (strcmp(mProducts[i][j][k]->getProdName(), inputName) == 0) {
 					if (mProducts[i][j][k]->getQuantity() < inputQuantity) {
 						cout << "Quantity of the product: " << mProducts[i][j][k]->getQuantity();
@@ -204,6 +202,11 @@ void Stock::removeProducts() {
 	}
 }
 
+//this function will check if a product is available
+static bool availabilityCheck() {
+
+}
+
 void Stock::clearingUp() {
 	//validation
 	int year;
@@ -227,7 +230,7 @@ void Stock::clearingUp() {
 	fileName[17] = day % 10 + '0';
 
 	//disposal of all expired goods
-	for (size_t currSec = 0; currSec < SECTIONS; currSec++){
+	for (size_t currSec = 0; currSec < SECTIONS; currSec++) {
 		for (size_t currShelf = 0; currShelf < SHELVES; currShelf++) {
 			for (size_t currShelfPos = 0; currShelfPos < SHELF_POS; currShelfPos++) {
 				if (mProducts[currSec][currShelf][currShelfPos]->getExpireDate().getYear() == year &&
@@ -239,7 +242,7 @@ void Stock::clearingUp() {
 				}
 				else if (mProducts[currSec][currShelf][currShelfPos]->getExpireDate().getYear() == year || mProducts[currSec][currShelf][currShelfPos]->getExpireDate().getYear() < year &&
 					mProducts[currSec][currShelf][currShelfPos]->getExpireDate().getMonth() < month || mProducts[currSec][currShelf][currShelfPos]->getExpireDate().getYear() == year &&
-					mProducts[currSec][currShelf][currShelfPos]->getExpireDate().getMonth() == month && mProducts[currSec][currShelf][currShelfPos]->getExpireDate().getDay() < day){
+					mProducts[currSec][currShelf][currShelfPos]->getExpireDate().getMonth() == month && mProducts[currSec][currShelf][currShelfPos]->getExpireDate().getDay() < day) {
 					//save to file
 					Product::write(fileName, *mProducts[currSec][currShelf][currShelfPos]);
 					mProducts[currSec][currShelf][currShelfPos] = nullptr;
