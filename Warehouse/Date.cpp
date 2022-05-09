@@ -90,3 +90,12 @@ size_t Date::getMonth()const {
 size_t Date::getDay()const {
 	return mDay;
 }
+
+//needed for file writing(the second parameter passed to the function is left because this could be helpful when printing the date but should improve)
+ostream& operator<<(ostream& os, const Date& date) {
+	return os;
+}
+
+istream& operator>>(istream& is, Date& date) {
+	return is;
+}

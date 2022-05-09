@@ -24,6 +24,10 @@ size_t Place::getShelf()const {
 	return mShelf;
 }
 
+size_t Place::getShelfPos()const {
+	return mShelfPos;
+}
+
 size_t Place::getId()const {
 	return mUniqueId.getID();
 }

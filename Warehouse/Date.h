@@ -32,7 +32,6 @@ public:
 
 	//needed for file writing
 	friend ostream& operator<<(ostream& os, const Date& date);
-	
+	friend istream& operator>>(istream& is, Date& date);
 };
-
 #endif

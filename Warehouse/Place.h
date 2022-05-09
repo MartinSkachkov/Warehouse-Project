@@ -17,6 +17,7 @@ public:
 	//getters
 	size_t getSection()const;
 	size_t getShelf()const;
+	size_t getShelfPos()const;
 	size_t getId()const;
 }; 
 

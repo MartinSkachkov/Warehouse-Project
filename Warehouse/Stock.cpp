@@ -241,10 +241,12 @@ void Stock::clearingUp() {
 					mProducts[currSec][currShelf][currShelfPos]->getExpireDate().getMonth() < month || mProducts[currSec][currShelf][currShelfPos]->getExpireDate().getYear() == year &&
 					mProducts[currSec][currShelf][currShelfPos]->getExpireDate().getMonth() == month && mProducts[currSec][currShelf][currShelfPos]->getExpireDate().getDay() < day){
 					//save to file
+					Product::write(fileName, *mProducts[currSec][currShelf][currShelfPos]);
 					mProducts[currSec][currShelf][currShelfPos] = nullptr;
 				}
 			}
 		}
 	}
-	//display read
+	//read it from a file and print the information for the removed products
+	Product::read(fileName);
 }
