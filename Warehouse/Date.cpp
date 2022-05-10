@@ -77,6 +77,18 @@ void Date::setDay() {
 	cout << "Day: ";
 	cin >> mDay;
 }
+//setters to set the year, month and the day by given number
+void Date::setYearNum(size_t year) {
+	mYear = year;
+}
+
+void Date::setMonthNum(size_t month) {
+	mMonth = month;
+}
+
+void Date::setDayNum(size_t day) {
+	mDay = day;
+}
 
 //getters
 size_t Date::getYear()const {

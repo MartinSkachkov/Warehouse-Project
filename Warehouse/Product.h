@@ -1,8 +1,10 @@
 #ifndef __PRODUCT_
 #define __PRODUCT_
 #include <fstream>
+#include <iostream>
 #include "Date.h"
 #include "Place.h"
+#include "UniqueID.h"
 #define MAX_LEN 1024
 
 class Product {
@@ -44,7 +46,10 @@ public:
 	Place getPlace()const;
 	const char* getComment()const;
 	
-	//file
+	//op<< - giving errors
+	friend ostream& operator<<(ostream& os, const Product& product);
+
+	//file - giving errors
 	static void write(const char* fileName, const Product& product);
 	static void read(const char* fileName);
 }; 

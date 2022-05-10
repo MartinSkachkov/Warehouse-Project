@@ -1,7 +1,6 @@
 #include "Date.h"
 #include "Product.h"
 #include "Stock.h"
-#include "Service.h"
 #include <iostream>
 using namespace std;
 

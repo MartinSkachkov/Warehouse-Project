@@ -142,7 +142,6 @@
     <ClInclude Include="Date.h" />
     <ClInclude Include="Place.h" />
     <ClInclude Include="Product.h" />
-    <ClInclude Include="Service.h" />
     <ClInclude Include="Stock.h" />
     <ClInclude Include="UniqueID.h" />
   </ItemGroup>
@@ -151,7 +150,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Place.cpp" />
     <ClCompile Include="Product.cpp" />
-    <ClCompile Include="Service.cpp" />
     <ClCompile Include="Stock.cpp" />
     <ClCompile Include="UniqueID.cpp" />
   </ItemGroup>

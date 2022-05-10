@@ -3,7 +3,7 @@
 using namespace std;
 #define FILENAME "Stock.txt"
 
-//Utils
+//Utils - help-functions
 // -------------------------------------------
 //this function sets every place to empty to indicate there is no product in the beginning
 void Stock::setEveryPlaceToEmpty() {
@@ -49,7 +49,52 @@ void Stock::setProducts(const Product& product) {
 	}
 }
 
+//help-function for the validation of the date
+bool isValidDate(size_t year, size_t month, size_t day) {
+	bool valid = false;
+	//validation of the date
+	if (MIN_YEAR <= year <= MAX_YEAR) {
+		if ((month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) && day > 0 && day <= 31) {
+			cout << "Valid date!\n";
+			valid = true;
+		}
+		else {
+			if ((month == 4 || month == 6 || month == 9 || month == 11) && day > 0 && day <= 30) {
+				cout << "Valid date!\n";
+				valid = true;
+			}
+			else {
+				if (month == 2) {
+					if ((year % 400 == 0 || (year % 100 != 0 && year % 4 == 0)) && day > 0 && day <= 29) {
+						cout << "Valid date!\n";
+						valid = true;
+					}
+					else if (day > 0 && day <= 28) {
+						cout << "Valid date!\n";
+						valid = true;
+					}
+					else {
+						cout << "Invalid date!\n";
+						valid = false;
+					}
+				}
+				else {
+					cout << "Invalid date!\n";
+					valid = false;
+				}
+			}
+		}
+	}
+	else {
+		cout << "Invalid date!\n";
+		valid = false;
+	}
+	return valid;
+}
+
 // -------------------------------------------
+
+//Main functions for the menu
 
 //this function will add new product
 void Stock::addProducts(const Product& product) {
@@ -69,10 +114,10 @@ void Stock::addProducts(const Product& product) {
 						//find a place on the same shelf
 						if (mProducts[i][j][currShelfPos] == nullptr) {
 							*mProducts[i][j][currShelfPos] = product;
-							Product::write(FILENAME, product); //save it to the file when it's added
 							mProducts[i][j][currShelfPos]->getPlace().setSection(i);
 							mProducts[i][j][currShelfPos]->getPlace().setShelf(j);
 							mProducts[i][j][currShelfPos]->getPlace().setShelfPos(currShelfPos);
+							Product::write(FILENAME, product); //save it to the file when it's added
 							return; //found a place and added the product, but if not continue
 						}
 					}
@@ -85,10 +130,10 @@ void Stock::addProducts(const Product& product) {
 						{
 							if (mProducts[i][currShelf][currShelfPos] == nullptr) {
 								*mProducts[i][currShelf][currShelfPos] = product;
-								Product::write(FILENAME, product); //save it to the file when it's added
 								mProducts[i][currShelf][currShelfPos]->getPlace().setSection(i);
 								mProducts[i][currShelf][currShelfPos]->getPlace().setShelf(currShelf);
 								mProducts[i][currShelf][currShelfPos]->getPlace().setShelfPos(currShelfPos);
+								Product::write(FILENAME, product); //save it to the file when it's added
 								return;
 							}
 						}
@@ -106,10 +151,10 @@ void Stock::addProducts(const Product& product) {
 							{
 								if (mProducts[currSection][currShelf][currShelfPos] == nullptr) {
 									*mProducts[currSection][currShelf][currShelfPos] = product;
-									Product::write(FILENAME, product); //save it to the file when it's added
 									mProducts[currSection][currShelf][currShelfPos]->getPlace().setSection(currSection);
 									mProducts[currSection][currShelf][currShelfPos]->getPlace().setShelf(currShelf);
 									mProducts[currSection][currShelf][currShelfPos]->getPlace().setShelfPos(currShelfPos);
+									Product::write(FILENAME, product); //save it to the file when it's added
 									return;
 								}
 							}
@@ -160,6 +205,12 @@ void Stock::removeProducts() {
 	size_t inputQuantity;
 	size_t newQuantity;
 	char inputName[MAX_LEN];
+	//create the min date - needed for the second bullet point, but I am not sure how to make it
+	Date expiringSoon;
+	//this could also be done with a constructor
+	expiringSoon.setYearNum(MIN_YEAR);
+	expiringSoon.setMonthNum(1);
+	expiringSoon.setDayNum(1);
 
 	cout << "Enter the name of the product you want to remove: ";
 	cin >> inputName;
@@ -188,8 +239,8 @@ void Stock::removeProducts() {
 						} while (decision != 'y' && decision != 'n');
 						switch (decision)
 						{
-						case 'y': mProducts[i][j][k] = nullptr; cout << "Product has been removed!"; break;
-						case 'n': cout << "No products are removed!"; break;
+						case 'y': mProducts[i][j][k] = nullptr; cout << "Product has been removed!" << endl; break;
+						case 'n': cout << "No products are removed!" << endl; break;
 						}
 					}
 					if (mProducts[i][j][k]->getQuantity() > 0 && mProducts[i][j][k]->getQuantity() > inputQuantity) {
@@ -203,10 +254,48 @@ void Stock::removeProducts() {
 }
 
 //this function will check if a product is available
-static bool availabilityCheck() {
+//not completed because I am not sure how to do it
+bool Stock::availabilityCheck() {
+	int year1, year2;
+	int month1, month2;
+	int day1, day2;
+	//range of dates
+	//date 1
+	cout << "Date1 Year: ";
+	cin >> year1;
+	cout << "Date1 Month: ";
+	cin >> month1;
+	cout << "Date1 Day: ";
+	cin >> day1;
 
+	while (!isValidDate(year1, month1, day1)) {
+		cout << "Date1 Year: ";
+		cin >> year1;
+		cout << "Date1 Month: ";
+		cin >> month1;
+		cout << "Date1 Day: ";
+		cin >> day1;
+	}
+	//date 2
+	cout << "Current Year: ";
+	cin >> year2;
+	cout << "Current Month: ";
+	cin >> month2;
+	cout << "Current Day: ";
+	cin >> day2;
+
+	while (!isValidDate(year2, month2, day2)) {
+		cout << "Current Year: ";
+		cin >> year2;
+		cout << "Current Month: ";
+		cin >> month2;
+		cout << "Current Day: ";
+		cin >> day2;
+	}
+	//and here we should do something with the range of the two dates to print the products in the given period 
 }
 
+//clears up the warehouse
 void Stock::clearingUp() {
 	//validation
 	int year;
@@ -219,6 +308,16 @@ void Stock::clearingUp() {
 	cout << "Current Day: ";
 	cin >> day;
 
+	while (!isValidDate(year,month,day)) {
+		cout << "Current Year: ";
+		cin >> year;
+		cout << "Current Month: ";
+		cin >> month;
+		cout << "Current Day: ";
+		cin >> day;
+	}
+
+	//create the name of the file
 	char fileName[] = "cleanup-YYYY-MM-DD.txt";
 	fileName[8] = year / 1000 + '0';
 	fileName[9] = (year / 100) % 10 + '0';
@@ -236,15 +335,17 @@ void Stock::clearingUp() {
 				if (mProducts[currSec][currShelf][currShelfPos]->getExpireDate().getYear() == year &&
 					mProducts[currSec][currShelf][currShelfPos]->getExpireDate().getMonth() == month &&
 					mProducts[currSec][currShelf][currShelfPos]->getExpireDate().getDay() == day) {
-					//save to file
+					//save to file the product that will be removed
 					Product::write(fileName, *mProducts[currSec][currShelf][currShelfPos]);
+					//remove the product
 					mProducts[currSec][currShelf][currShelfPos] = nullptr;
 				}
 				else if (mProducts[currSec][currShelf][currShelfPos]->getExpireDate().getYear() == year || mProducts[currSec][currShelf][currShelfPos]->getExpireDate().getYear() < year &&
 					mProducts[currSec][currShelf][currShelfPos]->getExpireDate().getMonth() < month || mProducts[currSec][currShelf][currShelfPos]->getExpireDate().getYear() == year &&
 					mProducts[currSec][currShelf][currShelfPos]->getExpireDate().getMonth() == month && mProducts[currSec][currShelf][currShelfPos]->getExpireDate().getDay() < day) {
-					//save to file
+					//save to file the product that will be removed
 					Product::write(fileName, *mProducts[currSec][currShelf][currShelfPos]);
+					//remove the product
 					mProducts[currSec][currShelf][currShelfPos] = nullptr;
 				}
 			}
