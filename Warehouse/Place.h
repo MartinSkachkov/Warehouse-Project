@@ -1,5 +1,7 @@
 #ifndef __PLACE_
 #define __PLACE_
+#include <iostream>
+#include <fstream>
 #include "UniqueID.h"
 
 class Place {
@@ -19,6 +21,9 @@ public:
 	size_t getShelf()const;
 	size_t getShelfPos()const;
 	size_t getId()const;
+
+	//operator for the stream
+	friend ostream& operator<<(ostream& os, const Place& place);
 }; 
 
 #endif 

@@ -22,8 +22,12 @@ public:
 
 	//this function will tell the number of repetitions of a product
 	int productsWithSameName();
-	// -------------------------------------------
 
+	//save the product to a file
+	static void saveToFile();
+	// -------------------------------------------
+	
+	//Main Functions
 	//these function will add new product
 	static void addProducts(const Product& product);
 

@@ -31,3 +31,11 @@ size_t Place::getShelfPos()const {
 size_t Place::getId()const {
 	return mUniqueId.getID();
 }
+
+//operator for the stream
+ostream& operator<<(ostream& os, const Place& place) {
+	os << "Section: " << place.getSection() << endl <<
+		"Shelf: " << place.getShelf() << endl <<
+		"Shelf position: " << place.getShelfPos() << endl <<
+		"ID: " << place.getId() << endl;
+}

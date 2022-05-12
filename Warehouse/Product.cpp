@@ -150,12 +150,21 @@ const char* Product::getComment()const {
 }
 
 ostream& operator<<(ostream& os, const Product& product) {
+	os << "Product name: " << product.getProdName() << endl <<
+		"Expire date\n" << product.getExpireDate() << endl <<
+		"Entry date\n" << product.getEntryDate() << endl <<
+		"Manifacturer name: " << product.getManifacName() << endl <<
+		"Quantity: " << product.getQuantity() << endl <<
+		"Location\n" << product.getPlace() << endl <<
+		"Comment: " << product.getComment() << endl;
+
+
 	return os;
 }
 
 //files - csv files would be better
 void Product::write(const char* filename,const Product& product) {
-	ofstream fout(filename, ios::ate); //open it for writing and move the read/write control to the end of the file
+	ofstream fout(filename); //open it for writing 
 
 	if (fout.is_open()) {
 		cout << "Error! File couldn't be opened";
@@ -165,8 +174,8 @@ void Product::write(const char* filename,const Product& product) {
 		cout << filename << " was opened for writing!";
 	}
 	
-	fout << product.mProdName << " " << product.mExpireDate << " " << product.mEntryDate << " " << product.mManifacName << " " <<
-		product.mQuantity << " " << product.mLocation.getSection() << " " << product.mLocation.getShelf() << " " << product.mLocation.getShelfPos() << " " <<
+	fout << product.mProdName << ", " << product.mExpireDate << ", " << product.mEntryDate << ", " << product.mManifacName << ", " <<
+		product.mQuantity << ", " << product.mLocation.getSection() << ", " << product.mLocation.getShelf() << ", " << product.mLocation.getShelfPos() << ", " <<
 		product.mLocation.getId();
 
 	fout.close();

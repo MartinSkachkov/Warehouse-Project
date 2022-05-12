@@ -92,15 +92,27 @@ bool isValidDate(size_t year, size_t month, size_t day) {
 	return valid;
 }
 
+//save the product to a file
+void Stock::saveToFile() {
+	for (size_t section = 0; section < SECTIONS; section++){
+		for (size_t shelf = 0; shelf < SHELVES; shelf++){
+			for (size_t shelfPos = 0; shelfPos < SHELF_POS; shelfPos++){
+				if (mProducts[section][shelf][shelfPos] != nullptr) { //if the product exists add it to the file
+					Product::write(FILENAME, *mProducts[section][shelf][shelfPos]);
+				}
+			}
+		}
+	}
+}
 // -------------------------------------------
 
 //Main functions for the menu
 
 //this function will add new product
 void Stock::addProducts(const Product& product) {
-	for (size_t i = 0; i < SECTIONS; i++) {
-		for (size_t j = 0; j < SHELVES; j++) {
-			for (size_t k = 0; k < SHELF_POS; k++) {
+	for (size_t i = 0; i < SECTIONS; i++) { //sections
+		for (size_t j = 0; j < SHELVES; j++) { //shelves
+			for (size_t k = 0; k < SHELF_POS; k++) { //position in the shelf
 				// wanted conditions for a product to be added
 				if (strcmp(mProducts[i][j][k]->getProdName(), product.getProdName()) == 0 && mProducts[i][j][k]->getExpireDate() != product.getExpireDate()) { //op!= for dates
 					// insert at empty location our new product
@@ -117,7 +129,6 @@ void Stock::addProducts(const Product& product) {
 							mProducts[i][j][currShelfPos]->getPlace().setSection(i);
 							mProducts[i][j][currShelfPos]->getPlace().setShelf(j);
 							mProducts[i][j][currShelfPos]->getPlace().setShelfPos(currShelfPos);
-							Product::write(FILENAME, product); //save it to the file when it's added
 							return; //found a place and added the product, but if not continue
 						}
 					}
@@ -133,7 +144,6 @@ void Stock::addProducts(const Product& product) {
 								mProducts[i][currShelf][currShelfPos]->getPlace().setSection(i);
 								mProducts[i][currShelf][currShelfPos]->getPlace().setShelf(currShelf);
 								mProducts[i][currShelf][currShelfPos]->getPlace().setShelfPos(currShelfPos);
-								Product::write(FILENAME, product); //save it to the file when it's added
 								return;
 							}
 						}
@@ -154,7 +164,6 @@ void Stock::addProducts(const Product& product) {
 									mProducts[currSection][currShelf][currShelfPos]->getPlace().setSection(currSection);
 									mProducts[currSection][currShelf][currShelfPos]->getPlace().setShelf(currShelf);
 									mProducts[currSection][currShelf][currShelfPos]->getPlace().setShelfPos(currShelfPos);
-									Product::write(FILENAME, product); //save it to the file when it's added
 									return;
 								}
 							}
@@ -168,6 +177,7 @@ void Stock::addProducts(const Product& product) {
 			}
 		}
 	}
+	saveToFile(); // save the information to a file
 }
 
 //this function will display all details of all products available in the Warehouse
@@ -206,11 +216,11 @@ void Stock::removeProducts() {
 	size_t newQuantity;
 	char inputName[MAX_LEN];
 	//create the min date - needed for the second bullet point, but I am not sure how to make it
-	Date expiringSoon;
+	//Date expiringSoon;
 	//this could also be done with a constructor
-	expiringSoon.setYearNum(MIN_YEAR);
-	expiringSoon.setMonthNum(1);
-	expiringSoon.setDayNum(1);
+	//expiringSoon.setYearNum(MIN_YEAR);
+	//expiringSoon.setMonthNum(1);
+	//expiringSoon.setDayNum(1);
 
 	cout << "Enter the name of the product you want to remove: ";
 	cin >> inputName;
@@ -251,6 +261,7 @@ void Stock::removeProducts() {
 			}
 		}
 	}
+	saveToFile();
 }
 
 //this function will check if a product is available

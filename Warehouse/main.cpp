@@ -11,11 +11,12 @@ int main() {
 	// Menu
 	// diaply all options available in Warehouse
 	while (1){
-		cout << "\n\tPress 1 to DISPLAY COMPLETE STOCK";
-		cout << "\n\tPress 2 to INSERT NEW PRODUCT";
-		cout << "\n\tPress 3 to REMOVE PRODUCT";
-		cout << "\n\tPress 4 to AVAILABILITY CHECK";
-		cout << "\n\tPress 5 to CLEARING UP";
+		cout << "\n\tPress 1 - DISPLAY COMPLETE STOCK";
+		cout << "\n\tPress 2 - INSERT NEW PRODUCT";
+		cout << "\n\tPress 3 - REMOVE PRODUCT";
+		cout << "\n\tPress 4 - AVAILABILITY CHECK";
+		cout << "\n\tPress 5 - CLEARING UP";
+		cout << "\n\tPress 6 - STOP";
 		cout << "\n\n\tOption: ";
 		//input user's choice and then call respective fucntion using switch cases
 		cin >> option;

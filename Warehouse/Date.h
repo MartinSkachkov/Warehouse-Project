@@ -26,6 +26,7 @@ public:
 	void setYear();
 	void setMonth();
 	void setDay();
+
 	//setters to set the year, month and the day by given number
 	void setYearNum(size_t year);
 	void setMonthNum(size_t month);

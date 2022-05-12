@@ -103,11 +103,15 @@ size_t Date::getDay()const {
 	return mDay;
 }
 
-//needed for file writing(the second parameter passed to the function is left because this could be helpful when printing the date but should improve)
+//needed for file writing
 ostream& operator<<(ostream& os, const Date& date) {
+	os << "Year: " << date.getYear() << endl <<
+		"Month: " << date.getMonth() << endl <<
+		"Day: " << date.getDay() << endl;
 	return os;
 }
 
 istream& operator>>(istream& is, Date& date) {
+	is >> date.setYear();
 	return is;
 }
