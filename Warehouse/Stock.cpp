@@ -1,5 +1,6 @@
 #include "Stock.h"
 #include <iostream>
+#include <fstream>
 using namespace std;
 #define FILENAME "Stock.txt"
 

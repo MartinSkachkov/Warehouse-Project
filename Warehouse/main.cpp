@@ -1,5 +1,3 @@
-#include "Date.h"
-#include "Product.h"
 #include "Stock.h"
 #include <iostream>
 using namespace std;
